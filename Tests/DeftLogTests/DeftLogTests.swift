@@ -2,10 +2,11 @@
     @testable import DeftLog
 
     final class DeftLogTests: XCTestCase {
-        func testExample() {
+        func testDefaultToInfo() {
             // This is an example of a functional test case.
             // Use XCTAssert and related functions to verify your tests produce the correct
             // results.
-            XCTAssertEqual(DeftLog().text, "Hello, World!")
+            let logger = DeftLog.logger(label: "blargh")
+            XCTAssertEqual(logger.logLevel, .info)
         }
     }
