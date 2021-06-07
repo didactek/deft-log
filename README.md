@@ -26,6 +26,20 @@ logLevel specified *at the executable level*.
 
 ### Configuring
 
+Near the start of the program, before libraries start requesting their loggers, set the configuration:
 
+    DeftLog.settings = [
+        ("com.didactek.deft-log", .critical),
+        ("com.didactek.deft-mcp2221.usb", .trace),
+        ("com.didactek.deft-mcp2221", .debug),
+    ]
 
 ### Obtaining Loggers
+
+    let logger = DeftLog.logger(label: "com.didactek.deft-mcp2221.hidapi") // .debug
+
+The settings are searched from start to end, looking for the first match against a label prefix. If no
+match is found, the default logLevel is unchanged as set by the initializer.
+
+DeftLog.logger(label:) returns a Logger created from swift-log. It will be connnected to the
+bootstrapped logging backend in the usual manner.

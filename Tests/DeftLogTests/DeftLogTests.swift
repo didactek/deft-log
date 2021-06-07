@@ -3,10 +3,20 @@
 
     final class DeftLogTests: XCTestCase {
         func testDefaultToInfo() {
-            // This is an example of a functional test case.
-            // Use XCTAssert and related functions to verify your tests produce the correct
-            // results.
             let logger = DeftLog.logger(label: "blargh")
+            // This is the default for any Logger:
             XCTAssertEqual(logger.logLevel, .info)
+        }
+
+        func testSimplePattern() {
+            DeftLog.settings = [
+                ("blargh.too-specific", .debug),
+                ("this-wont-match", .critical),
+                ("blar", .trace),
+                ("also-wont-match", .critical),
+                ("blargh", .debug),  // more complete match, but too late
+            ]
+            let logger = DeftLog.logger(label: "blargh")
+            XCTAssertEqual(logger.logLevel, .trace)
         }
     }
