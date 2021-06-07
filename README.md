@@ -1,7 +1,8 @@
 # DeftLog
 
-A factory for building [swift-log](https://github.com/apple/swift-log) Loggers offering
-centralized control over logLevel.
+A factory for building [swift-log](https://github.com/apple/swift-log) Loggers while adding
+centralized control over logLevel. Can be used by libraries to surface their logging options
+to applications.
 
 ## Need
 
@@ -39,7 +40,7 @@ Near the start of the program, before libraries start requesting their loggers, 
     let logger = DeftLog.logger(label: "com.didactek.deft-mcp2221.hidapi") // .debug
 
 The settings are searched from start to end, looking for the first match against a label prefix. If no
-match is found, the default logLevel is unchanged as set by the initializer.
+match is found, the default logLevel (as set by the initializer) is unchanged .
 
 DeftLog.logger(label:) returns a Logger created from swift-log. It will be connnected to the
-bootstrapped logging backend in the usual manner.
+bootstrapped log handler backend in the usual manner.

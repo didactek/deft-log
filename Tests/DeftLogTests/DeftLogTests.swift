@@ -4,7 +4,7 @@
     final class DeftLogTests: XCTestCase {
         func testDefaultToInfo() {
             let logger = DeftLog.logger(label: "blargh")
-            // This is the default for any Logger:
+            // This is the default for an un-specified Logger:
             XCTAssertEqual(logger.logLevel, .info)
         }
 
@@ -12,9 +12,9 @@
             DeftLog.settings = [
                 ("blargh.too-specific", .debug),
                 ("this-wont-match", .critical),
-                ("blar", .trace),
+                ("blar", .trace),  // <<< This is the one
                 ("also-wont-match", .critical),
-                ("blargh", .debug),  // more complete match, but too late
+                ("blargh", .debug),  // More complete match, but too late
             ]
             let logger = DeftLog.logger(label: "blargh")
             XCTAssertEqual(logger.logLevel, .trace)

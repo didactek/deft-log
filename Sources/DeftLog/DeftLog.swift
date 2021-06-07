@@ -10,11 +10,15 @@
 import Logging
 
 public class DeftLog {
-    // FIXME: have prefix actually be a regex pattern.
-    // FIXME: have these be anonymous tuples? Or an array of structures?
-    // Trying tuple to reduce verbosity of the setup:
+    /// Log levels to apply to Loggers fetched through this interface.
+    ///
+    /// When a new Logger is requested, its label is checked against each of the prefixes here
+    /// (in order). If there is a match, the level from the first matching pair is applied to the Logger obtained.
     public static var settings: [(prefix: String, level: Logger.Level)] = []
 
+    /// Create a new Logger. If the label matches a log level preference in `settings`, the corresponding
+    /// log level will be applied to the new logger. Plumbing to the LogHandler is the same as if Logger was
+    /// initialized directly.
     public static func logger(label: String) -> Logger {
         var logObject = Logger(label: label)
 
