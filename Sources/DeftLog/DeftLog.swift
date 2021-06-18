@@ -9,16 +9,22 @@
 
 import Logging
 
+/// Centrally configure swift-log logLevel threshold based on logger label.
 public class DeftLog {
-    /// Log levels to apply to Loggers fetched through this interface.
+    /// Configure log levels for Loggers obtained via DeftLog.
     ///
-    /// When a new Logger is requested, its label is checked against each of the prefixes here
-    /// (in order). If there is a match, the level from the first matching pair is applied to the Logger obtained.
+    /// When a new `Logger` is requested through ``logger(label:)``, its label is checked against
+    /// each of the prefixes in this array (in order). If there is a match, the level from the first
+    /// matching pair is applied to the Logger returned.
     public static var settings: [(prefix: String, level: Logger.Level)] = []
 
-    /// Create a new Logger. If the label matches a log level preference in `settings`, the corresponding
-    /// log level will be applied to the new logger. Plumbing to the LogHandler is the same as if Logger was
-    /// initialized directly.
+    /// Create a new `Logger` and set its `logLevel`.
+    ///
+    /// After the new Logger is initialized, its label is checked against ``settings``. If there is a match, the
+    /// corresponding log level will be applied to the new logger before it is returned.
+    ///
+    /// - Note: LogHandler assignment continues to use the same bootstrap mechanism as
+    /// if the Logger were initialized directly.
     public static func logger(label: String) -> Logger {
         var logObject = Logger(label: label)
 
