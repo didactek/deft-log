@@ -24,7 +24,7 @@ public class DeftLog {
     /// corresponding log level will be applied to the new logger before it is returned.
     ///
     /// - Note: LogHandler assignment continues to use the same bootstrap mechanism as
-    /// if the Logger were initialized directly.
+    /// if the Logger were initialized directly. Back-ends are wired as they would be without using DeftLog.
     public static func logger(label: String) -> Logger {
         var logObject = Logger(label: label)
 

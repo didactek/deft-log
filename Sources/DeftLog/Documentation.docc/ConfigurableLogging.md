@@ -55,19 +55,24 @@ logLevel specified *by the main executable*.
 Near the start of the program--before libraries start requesting their loggers--describe
 any log level overrides according to the Logger label prefix:
 
-    DeftLog.settings = [
-        ("com.didactek.deft-log", .critical),
-        ("com.didactek.deft-mcp2221.usb", .trace),
-        ("com.didactek.deft-mcp2221", .debug),
-    ]
+```swift
+DeftLog.settings = [
+    ("com.didactek.deft-log", .critical),
+    ("com.didactek.deft-mcp2221.usb", .trace),
+    ("com.didactek.deft-mcp2221", .debug),
+]
+```
 
 ### Adopting
 
 Simply obtain the logger from DeftLog:
 
-    let logger = DeftLog.logger(label: "com.didactek.deft-mcp2221.hidapi") // .debug
+```swift
+// Will be .debug using above settings
+let logger = DeftLog.logger(label: "com.didactek.deft-mcp2221.hidapi")
+```
 
-This replaces the typical `var logger = Logger(label: "com.didactek.deft-mcp2221.hidapi"`
+This replaces the typical `var logger = Logger(label: "com.didactek.deft-mcp2221.hidapi")`
 file-level declaration that is often paired somewhere else with setting the log level
 (`logger.logLevel = .debug`). Note the logger can usually be a `let`, since its logLevel
 is pre-set and there should not be a need to change it.
